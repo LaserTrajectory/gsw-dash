@@ -17,22 +17,23 @@ st.header("By Aniruddh Bhaskaran (Ashoka University UG '23)")
 st.subheader("Date: 14th May 2021")
 
 # read data into the dashboard - cleaned data sourced from warriors.ipynb
-roster = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/roster.csv')
-per_game = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/per_game.csv')
-totals = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/totals.csv')
-per_36_min = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/per_36_min.csv')
-per_100_poss = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/per_100_poss.csv')
-advanced = pd.read_csv('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/advanced.csv')
-win_loss_clean = pd.read_excel('/Users/aniruddhbhaskaran/Programming/Python/Data_Analysis/win_loss_clean_excel.xlsx')
+roster = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/roster.csv')
+per_game = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/per_game.csv')
+totals = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/totals.csv')
+per_36_min = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/per_36_min.csv')
+per_100_poss = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/per_100_poss.csv')
+advanced = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/advanced.csv')
+win_loss_clean = pd.read_csv('https://raw.githubusercontent.com/LaserTrajectory/gsw-dash/main/win_loss_clean_excel_test_2.csv')
 # win_loss_cols = game_log[["G", "Date", "Opp", "W/L", "Tm", "Opp"]]
 
 # win_loss = win_loss_cols.copy()
 
 # any further cleaning that needs to be done can be done here
 roster.drop(columns=["Unnamed: 0"], inplace=True)
-win_loss_clean.drop(columns=["Table 1"], inplace=True)
-win_loss_clean.rename(columns={"Unnamed: 1":"Date", "Unnamed: 2":"Opp", "Unnamed: 3":"W/L", "Unnamed: 4":"Team Score", "Unnamed: 5":"Opp Score"}, inplace=True)
-new_w_l = win_loss_clean.drop(0)
+# win_loss_clean.drop(columns=["Table 1"], inplace=True)
+win_loss_clean.rename(columns={"Unnamed: 1":"Date", "Unnamed: 2":"Opp", "Unnamed: 3":"W/L", "Tm":"Team Score", "Opp.1":"Opp Score"}, inplace=True)
+new_w_l = win_loss_clean.copy()
+new_w_l.index = list(range(1, 71))
 new_w_l['Point Differential'] = new_w_l['Team Score'] - new_w_l['Opp Score']
 avg_pt_diff = new_w_l["Point Differential"].mean()
 per_game.drop(columns=["Unnamed: 0"], inplace=True)
